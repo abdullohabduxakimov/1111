@@ -67,12 +67,18 @@ export default function ContactForm() {
         message: formData.message,
       }
 
-      const response = await fetch("https://v0-fixoreit-messages-website.vercel.app/api/messages", {
+      const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone || "",
+          service: formData.service || "",
+          message: formData.message,
+        }),
       })
 
       if (!response.ok) {
