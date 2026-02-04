@@ -6,14 +6,13 @@ import About from "@/components/about"
 import OurServices from "@/components/our-services"
 import Mission from "@/components/mission"
 import Industries from "@/components/industries"
-import Infrastructure from "@/components/infrastructure"
 import Stats from "@/components/stats"
 import WhatsApp from "@/components/whatsapp"
 import Footer from "@/components/footer"
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-background">
       <Header />
       <Hero />
       <Clients />
@@ -21,7 +20,6 @@ export default function Home() {
       <OurServices />
       <Mission />
       <Industries />
-      <Infrastructure />
       <Stats />
       <WhatsApp />
       <Footer />

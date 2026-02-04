@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { useState } from "react"
-import { MapPin, Mail, ArrowRight, AlertCircle, CheckCircle } from "lucide-react"
+import { MapPin, Mail, ArrowRight, AlertCircle, CheckCircle, Phone } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -59,14 +59,6 @@ export default function ContactForm() {
     setFormErrors({})
 
     try {
-      const payload = {
-        name: formData.name,
-        email: formData.email,
-        phone_number: formData.phone || "",
-        service: formData.service || "",
-        message: formData.message,
-      }
-
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
@@ -83,7 +75,6 @@ export default function ContactForm() {
 
       if (!response.ok) {
         const errorText = await response.text()
-        console.error("[v0] API response error:", errorText)
         throw new Error(`Failed to send message: ${response.status}`)
       }
 
@@ -104,7 +95,6 @@ export default function ContactForm() {
 
       setTimeout(() => setShowSuccessModal(false), 4000)
     } catch (error) {
-      console.error("[v0] Error sending message:", error)
       toast({
         title: "Error Sending Message",
         description: error instanceof Error ? error.message : "Failed to send your message. Please try again.",
@@ -122,99 +112,88 @@ export default function ContactForm() {
     }
   }
 
+  const contactInfo = [
+    {
+      icon: MapPin,
+      title: "UK Office",
+      description: "Covent Garden, Shelton Street 71-75, London",
+    },
+    {
+      icon: MapPin,
+      title: "Uzbekistan Office",
+      description: "Obi-Hayot, Namangan, 16001",
+    },
+    {
+      icon: Mail,
+      title: "Email Us",
+      description: "official@fixoreit.com",
+      href: "mailto:official@fixoreit.com",
+    },
+    {
+      icon: Phone,
+      title: "Call Us",
+      description: "+44 20 3984 5374",
+      href: "tel:+442039845374",
+    },
+  ]
+
   return (
     <>
-      <section className="py-16 md:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="mb-16 text-center lg:text-left" data-aos="fade-up" data-aos-delay="100">
-            <a
-              href="#"
-              className="inline-flex items-center gap-2 text-cyan-400 font-semibold text-sm mb-4 hover:text-cyan-300 transition-colors duration-300"
-            >
-              Contact us <ArrowRight size={16} />
-            </a>
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">
-              Get in <span className="text-cyan-400">Touch</span>
+      <section className="py-24 lg:py-32 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          {/* Section Header */}
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 bg-teal-500/10 text-teal-600 px-4 py-2 rounded-full mb-6">
+              <span className="w-2 h-2 bg-teal-500 rounded-full" />
+              <span className="text-sm font-semibold tracking-wide">Contact Us</span>
+            </div>
+            <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4 font-[family-name:var(--font-space-grotesk)]">
+              Get in
+              <span className="text-gradient"> Touch</span>
             </h2>
-            <p className="text-gray-600 max-w-2xl">
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
               Have a question or need assistance? Reach out to us and we'll respond as quickly as possible.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-            <div className="space-y-6" data-aos="fade-right" data-aos-delay="200">
-              <div
-                className="bg-card border border-border rounded-xl p-6 flex items-start gap-4 hover:border-cyan-400/50 hover:shadow-lg hover:shadow-cyan-400/10 transition-all duration-300 group"
-                data-aos="zoom-in"
-                data-aos-delay="300"
-              >
-                <div className="bg-cyan-400/10 rounded-lg p-3 flex-shrink-0 group-hover:bg-cyan-400/20 transition-colors duration-300">
-                  <MapPin size={24} className="text-cyan-400" />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* Contact Info Cards */}
+            <div className="space-y-4">
+              {contactInfo.map((item, index) => (
+                <div
+                  key={index}
+                  className="group bg-white border border-slate-200 rounded-2xl p-6 flex items-start gap-4 hover:border-teal-500/50 hover:shadow-lg hover:shadow-teal-500/5 transition-all duration-300"
+                >
+                  <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-teal-500/10 flex items-center justify-center group-hover:bg-teal-500 transition-colors">
+                    <item.icon className="w-5 h-5 text-teal-600 group-hover:text-white transition-colors" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-slate-900 mb-1">{item.title}</h3>
+                    {item.href ? (
+                      <a 
+                        href={item.href}
+                        className="text-slate-600 hover:text-teal-600 transition-colors"
+                      >
+                        {item.description}
+                      </a>
+                    ) : (
+                      <p className="text-slate-600">{item.description}</p>
+                    )}
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-bold text-lg text-white mb-1">UK Office</h3>
-                  <p className="text-gray-300 text-sm leading-relaxed">Covent Garden, Shelton Street 71-75, London</p>
-                </div>
-              </div>
-
-              <div
-                className="bg-card border border-border rounded-xl p-6 flex items-start gap-4 hover:border-cyan-400/50 hover:shadow-lg hover:shadow-cyan-400/10 transition-all duration-300 group"
-                data-aos="zoom-in"
-                data-aos-delay="350"
-              >
-                <div className="bg-cyan-400/10 rounded-lg p-3 flex-shrink-0 group-hover:bg-cyan-400/20 transition-colors duration-300">
-                  <MapPin size={24} className="text-cyan-400" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-lg text-white mb-1">Uzbekistan Office</h3>
-                  <p className="text-gray-300 text-sm leading-relaxed">Obi-Hayot, Namangan, 16001</p>
-                </div>
-              </div>
-
-              <div
-                className="bg-card border border-border rounded-xl p-6 flex items-start gap-4 hover:border-cyan-400/50 hover:shadow-lg hover:shadow-cyan-400/10 transition-all duration-300 group"
-                data-aos="zoom-in"
-                data-aos-delay="400"
-              >
-                <div className="bg-cyan-400/10 rounded-lg p-3 flex-shrink-0 group-hover:bg-cyan-400/20 transition-colors duration-300">
-                  <Mail size={24} className="text-cyan-400" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-lg text-white mb-1">Support Email</h3>
-                  <p className="text-gray-300 text-sm leading-relaxed">support@fixoreit.com</p>
-                </div>
-              </div>
-
-              <div
-                className="bg-card border border-border rounded-xl p-6 flex items-start gap-4 hover:border-cyan-400/50 hover:shadow-lg hover:shadow-cyan-400/10 transition-all duration-300 group"
-                data-aos="zoom-in"
-                data-aos-delay="450"
-              >
-                <div className="bg-cyan-400/10 rounded-lg p-3 flex-shrink-0 group-hover:bg-cyan-400/20 transition-colors duration-300">
-                  <Mail size={24} className="text-cyan-400" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-lg text-white mb-1">General Inquiries</h3>
-                  <p className="text-gray-300 text-sm leading-relaxed">WeCare@fixoreit.com</p>
-                </div>
-              </div>
+              ))}
             </div>
 
-            <div
-              className="bg-card border border-border rounded-xl p-8 relative overflow-hidden hover:border-cyan-400/30 transition-all duration-300"
-              data-aos="fade-left"
-              data-aos-delay="200"
-            >
-              <div className="absolute -top-32 -right-32 w-64 h-64 bg-cyan-400/5 rounded-full blur-3xl pointer-events-none"></div>
-
-              <form onSubmit={handleSubmit} className="space-y-5 relative z-10">
+            {/* Contact Form */}
+            <div className="bg-white border border-slate-200 rounded-3xl p-8 shadow-xl shadow-slate-900/5">
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label className="block text-sm font-semibold text-white mb-2">
-                    Name <span className="text-red-500">*</span>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">
+                    Full Name <span className="text-red-500">*</span>
                   </label>
                   <Input
                     placeholder="Your full name"
-                    className={`bg-secondary border-border text-white placeholder:text-gray-500 focus:border-cyan-400 focus:ring-cyan-400/20 transition-all duration-300 ${
+                    className={`bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-teal-500 focus:ring-teal-500/20 rounded-xl h-12 ${
                       formErrors.name ? "border-red-500 focus:border-red-500 focus:ring-red-500/20" : ""
                     }`}
                     value={formData.name}
@@ -222,21 +201,21 @@ export default function ContactForm() {
                     required
                   />
                   {formErrors.name && (
-                    <div className="flex items-center gap-2 mt-2 text-red-400 text-sm">
-                      <AlertCircle size={16} />
+                    <div className="flex items-center gap-2 mt-2 text-red-500 text-sm">
+                      <AlertCircle size={14} />
                       {formErrors.name}
                     </div>
                   )}
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-white mb-2">
+                  <label className="block text-sm font-medium text-slate-700 mb-2">
                     Email Address <span className="text-red-500">*</span>
                   </label>
                   <Input
-                    placeholder="your.email@example.com"
+                    placeholder="you@example.com"
                     type="email"
-                    className={`bg-secondary border-border text-white placeholder:text-gray-500 focus:border-cyan-400 focus:ring-cyan-400/20 transition-all duration-300 ${
+                    className={`bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-teal-500 focus:ring-teal-500/20 rounded-xl h-12 ${
                       formErrors.email ? "border-red-500 focus:border-red-500 focus:ring-red-500/20" : ""
                     }`}
                     value={formData.email}
@@ -244,47 +223,47 @@ export default function ContactForm() {
                     required
                   />
                   {formErrors.email && (
-                    <div className="flex items-center gap-2 mt-2 text-red-400 text-sm">
-                      <AlertCircle size={16} />
+                    <div className="flex items-center gap-2 mt-2 text-red-500 text-sm">
+                      <AlertCircle size={14} />
                       {formErrors.email}
                     </div>
                   )}
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-semibold text-white mb-2">Phone</label>
+                    <label className="block text-sm font-medium text-slate-700 mb-2">Phone</label>
                     <Input
                       placeholder="Your phone number"
-                      className="bg-secondary border-border text-white placeholder:text-gray-500 focus:border-cyan-400 focus:ring-cyan-400/20 transition-all duration-300"
+                      className="bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-teal-500 focus:ring-teal-500/20 rounded-xl h-12"
                       value={formData.phone}
                       onChange={(e) => handleInputChange("phone", e.target.value)}
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold text-white mb-2">Service</label>
+                    <label className="block text-sm font-medium text-slate-700 mb-2">Service</label>
                     <Select value={formData.service} onValueChange={(value) => handleInputChange("service", value)}>
-                      <SelectTrigger className="bg-secondary border-border text-white focus:border-cyan-400 focus:ring-cyan-400/20 transition-all duration-300">
+                      <SelectTrigger className="bg-slate-50 border-slate-200 text-slate-900 focus:border-teal-500 focus:ring-teal-500/20 rounded-xl h-12">
                         <SelectValue placeholder="Select a service" />
                       </SelectTrigger>
-                      <SelectContent className="bg-secondary border-border">
-                        <SelectItem value="web-development">Web Development</SelectItem>
-                        <SelectItem value="mobile-app">Mobile App Development</SelectItem>
+                      <SelectContent className="bg-white border-slate-200 rounded-xl">
+                        <SelectItem value="it-support">IT Support</SelectItem>
+                        <SelectItem value="network">Network Infrastructure</SelectItem>
+                        <SelectItem value="deployment">Global Deployments</SelectItem>
+                        <SelectItem value="datacenter">Data Center Support</SelectItem>
                         <SelectItem value="consulting">Consulting</SelectItem>
-                        <SelectItem value="support">IT Support</SelectItem>
-                        <SelectItem value="migration">Migration Services</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-white mb-2">
+                  <label className="block text-sm font-medium text-slate-700 mb-2">
                     Message <span className="text-red-500">*</span>
                   </label>
                   <Textarea
-                    placeholder="Tell us more about your project..."
-                    className={`bg-secondary border-border text-white placeholder:text-gray-500 focus:border-cyan-400 focus:ring-cyan-400/20 transition-all duration-300 min-h-32 resize-none ${
+                    placeholder="Tell us about your project or requirements..."
+                    className={`bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-teal-500 focus:ring-teal-500/20 rounded-xl min-h-32 resize-none ${
                       formErrors.message ? "border-red-500 focus:border-red-500 focus:ring-red-500/20" : ""
                     }`}
                     value={formData.message}
@@ -292,8 +271,8 @@ export default function ContactForm() {
                     required
                   />
                   {formErrors.message && (
-                    <div className="flex items-center gap-2 mt-2 text-red-400 text-sm">
-                      <AlertCircle size={16} />
+                    <div className="flex items-center gap-2 mt-2 text-red-500 text-sm">
+                      <AlertCircle size={14} />
                       {formErrors.message}
                     </div>
                   )}
@@ -302,9 +281,10 @@ export default function ContactForm() {
                 <Button
                   type="submit"
                   disabled={isLoading}
-                  className="bg-cyan-400 hover:bg-cyan-300 text-black font-semibold px-8 py-2.5 rounded-lg w-full transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-lg hover:shadow-cyan-400/30"
+                  className="w-full bg-teal-500 hover:bg-teal-600 text-white font-semibold py-6 rounded-full transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-teal-500/25 hover:shadow-teal-500/40 flex items-center justify-center gap-2"
                 >
                   {isLoading ? "Sending..." : "Send Message"}
+                  {!isLoading && <ArrowRight size={18} />}
                 </Button>
               </form>
             </div>
@@ -312,19 +292,24 @@ export default function ContactForm() {
         </div>
       </section>
 
+      {/* Success Modal */}
       {showSuccessModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl shadow-2xl max-w-md w-full p-8 text-center animate-in fade-in zoom-in duration-300">
-            <div className="flex justify-center mb-4">
-              <CheckCircle size={64} className="text-green-500" />
+        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full p-8 text-center">
+            <div className="flex justify-center mb-6">
+              <div className="w-16 h-16 rounded-full bg-teal-500/10 flex items-center justify-center">
+                <CheckCircle size={40} className="text-teal-500" />
+              </div>
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-2">Message Sent!</h3>
-            <p className="text-gray-600 mb-6">
+            <h3 className="text-2xl font-bold text-slate-900 mb-2 font-[family-name:var(--font-space-grotesk)]">
+              Message Sent!
+            </h3>
+            <p className="text-slate-600 mb-6">
               Thank you for contacting us. We've received your message and will get back to you as soon as possible.
             </p>
             <Button
               onClick={() => setShowSuccessModal(false)}
-              className="bg-cyan-400 hover:bg-cyan-300 text-black font-semibold w-full"
+              className="bg-teal-500 hover:bg-teal-600 text-white font-semibold w-full py-3 rounded-full"
             >
               Got it
             </Button>
