@@ -5,14 +5,23 @@ import type React from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { Search, ArrowRight, Menu, X } from "lucide-react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { usePathname, useRouter } from "next/navigation"
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
+  const [isScrolled, setIsScrolled] = useState(false)
   const pathname = usePathname()
   const router = useRouter()
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20)
+    }
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   const isActive = (href: string) => {
     if (href === "/" && pathname === "/") return true
@@ -45,7 +54,7 @@ export default function Header() {
   }
 
   return (
-    <header className="fixed top-7.5 left-0 right-0 z-50 bg-white border-b border-gray-200 transition-all duration-300 mx-6 rounded-3xl shadow-lg">
+    <header className={`fixed top-7.5 left-0 right-0 z-50 bg-white border-b border-gray-200 transition-all duration-300 mx-6 rounded-3xl ${isScrolled ? "shadow-xl" : "shadow-lg"}`}>
       <nav className="max-w-7xl mx-auto px-8 h-20 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center gap-4 hover:scale-105 transition-transform duration-300 flex-shrink-0">

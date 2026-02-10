@@ -1,10 +1,12 @@
-import { Mail, MapPin } from "lucide-react"
+import { Mail, MapPin, Phone, Linkedin, Twitter, Facebook } from "lucide-react"
 
 export default function Footer() {
+  const currentYear = new Date().getFullYear()
+
   return (
     <footer className="relative py-16 px-4 overflow-hidden">
       <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url(/footer-bg.png)" }} />
-      <div className="absolute inset-0 bg-black/60" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-black/80" />
 
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
@@ -29,23 +31,23 @@ export default function Footer() {
             <h4 className="font-semibold text-white">Services</h4>
             <ul className="space-y-2 text-sm text-white/90">
               <li>
-                <a href="#" className="hover:text-blue-300 transition">
-                  Cloud Solutions
+                <a href="/services" className="hover:text-blue-300 transition">
+                  IT Support & Desktop Services
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-blue-300 transition">
-                  Cybersecurity
+                <a href="/services" className="hover:text-blue-300 transition">
+                  Network Infrastructure
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-blue-300 transition">
-                  Infrastructure
+                <a href="/services" className="hover:text-blue-300 transition">
+                  Global IT Deployments
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-blue-300 transition">
-                  Support
+                <a href="/services" className="hover:text-blue-300 transition">
+                  Data Center Support
                 </a>
               </li>
             </ul>
@@ -60,22 +62,22 @@ export default function Footer() {
             <h4 className="font-semibold text-white">Company</h4>
             <ul className="space-y-2 text-sm text-white/90">
               <li>
-                <a href="#" className="hover:text-blue-300 transition">
+                <a href="/about" className="hover:text-blue-300 transition">
                   About Us
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-blue-300 transition">
-                  Careers
+                <a href="/portfolio" className="hover:text-blue-300 transition">
+                  Portfolio
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-blue-300 transition">
-                  Blog
+                <a href="/news" className="hover:text-blue-300 transition">
+                  News
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-blue-300 transition">
+                <a href="/contact" className="hover:text-blue-300 transition">
                   Contact
                 </a>
               </li>
@@ -91,32 +93,57 @@ export default function Footer() {
             <h4 className="font-semibold text-white">Get in Touch</h4>
             <ul className="space-y-3 text-sm text-white/90">
               <li className="flex items-center gap-2">
-                <Mail size={16} className="text-blue-300" />
+                <Mail size={16} className="text-blue-300 flex-shrink-0" />
                 <a href="mailto:official@fixoreit.com" className="hover:text-blue-300 transition">
                   official@fixoreit.com
                 </a>
               </li>
               <li className="flex items-center gap-2">
-                <Mail size={16} className="text-blue-300" />
+                <Mail size={16} className="text-blue-300 flex-shrink-0" />
                 <a href="mailto:support@fixoreit.com" className="hover:text-blue-300 transition">
                   support@fixoreit.com
                 </a>
               </li>
+              <li className="flex items-center gap-2">
+                <Phone size={16} className="text-blue-300 flex-shrink-0" />
+                <a href="tel:+442039845374" className="hover:text-blue-300 transition">
+                  +44 20 3984 5374
+                </a>
+              </li>
               <li className="flex items-start gap-2">
-                <MapPin size={16} className="text-blue-300 mt-1" />
+                <MapPin size={16} className="text-blue-300 mt-1 flex-shrink-0" />
                 <span>
-                  UK, London, Covent Garden,
+                  71-75 Shelton Street,
                   <br />
-                  Shelton Street 71-75
+                  Covent Garden, London
                 </span>
               </li>
             </ul>
+
+            <div className="pt-4 flex gap-3">
+              <a href="#" className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all duration-300 hover:scale-110" aria-label="LinkedIn">
+                <Linkedin size={16} className="text-white" />
+              </a>
+              <a href="#" className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all duration-300 hover:scale-110" aria-label="Twitter">
+                <Twitter size={16} className="text-white" />
+              </a>
+              <a href="#" className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all duration-300 hover:scale-110" aria-label="Facebook">
+                <Facebook size={16} className="text-white" />
+              </a>
+            </div>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="bg-white/10 backdrop-blur-md py-8 px-6 rounded-lg text-center text-sm text-white/90 border border-white/20">
-          <p>&copy; 2026 Fixore IT Global Services. All rights reserved.</p>
+        <div className="bg-white/10 backdrop-blur-md py-6 px-6 rounded-lg border border-white/20">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-white/90">
+            <p>&copy; {currentYear} Fixore IT Global Services. All rights reserved.</p>
+            <div className="flex gap-6">
+              <a href="#" className="hover:text-blue-300 transition">Privacy Policy</a>
+              <a href="#" className="hover:text-blue-300 transition">Terms of Service</a>
+              <a href="#" className="hover:text-blue-300 transition">Cookie Policy</a>
+            </div>
+          </div>
         </div>
       </div>
     </footer>

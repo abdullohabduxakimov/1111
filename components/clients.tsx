@@ -8,11 +8,12 @@ export default function Clients() {
   ]
 
   return (
-    <section className="py-16 bg-white border-b border-gray-100">
+    <section className="py-16 bg-gradient-to-b from-gray-50 to-white border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-8">
-        <p className="text-center text-gray-900 font-bold text-lg mb-12" data-aos="fade-up">
-          Trusted By Industry Leaders
-        </p>
+        <div className="text-center mb-12" data-aos="fade-up">
+          <span className="text-sm text-blue-600 font-semibold uppercase tracking-wider">Trusted Partners</span>
+          <p className="text-gray-900 font-bold text-2xl mt-2">Industry Leaders Choose Us</p>
+        </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 items-center justify-items-center">
           {clients.map((client, index) => (
             <div

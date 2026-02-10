@@ -8,6 +8,9 @@ import Mission from "@/components/mission"
 import Industries from "@/components/industries"
 import Infrastructure from "@/components/infrastructure"
 import Stats from "@/components/stats"
+import Testimonials from "@/components/testimonials"
+import FAQ from "@/components/faq"
+import ScrollToTop from "@/components/scroll-to-top"
 import WhatsApp from "@/components/whatsapp"
 import Footer from "@/components/footer"
 
@@ -23,6 +26,9 @@ export default function Home() {
       <Industries />
       <Infrastructure />
       <Stats />
+      <Testimonials />
+      <FAQ />
+      <ScrollToTop />
       <WhatsApp />
       <Footer />
       <FixoreITAssistant />

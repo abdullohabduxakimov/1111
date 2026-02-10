@@ -51,14 +51,20 @@ export default function Hero() {
             EMEA, LATHAM & North America.
           </p>
 
-          <button
-            onClick={handleContactClick}
-            className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3.5 rounded-lg font-semibold transition-all duration-300 flex items-center gap-2 w-fit shadow-lg hover:shadow-blue-500/50 hover:shadow-2xl transform active:scale-95"
-            data-aos="fade-up"
-            data-aos-delay="600"
-          >
-            Get Started <ArrowRight size={20} />
-          </button>
+          <div className="flex flex-col sm:flex-row gap-4" data-aos="fade-up" data-aos-delay="600">
+            <button
+              onClick={handleContactClick}
+              className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3.5 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-blue-500/50 hover:shadow-2xl transform hover:scale-105 active:scale-95"
+            >
+              Get Started <ArrowRight size={20} />
+            </button>
+            <a
+              href="/services"
+              className="bg-white/10 backdrop-blur-md hover:bg-white/20 border-2 border-white/30 text-white px-8 py-3.5 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 hover:shadow-lg transform hover:scale-105 active:scale-95"
+            >
+              View Services
+            </a>
+          </div>
         </div>
       </div>
     </section>
